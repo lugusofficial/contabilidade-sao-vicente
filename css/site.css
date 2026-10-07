@@ -12,8 +12,19 @@
 .hero__inner { display: grid; gap: var(--space-7); align-items: center; }
 .hero__text h1 { max-width: 16ch; }
 .hero__text .lead { max-width: 36ch; }
-.hero__media { border-radius: var(--radius-lg); overflow: hidden; }
-.hero__media img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: inherit; }
+.hero__media { position: relative; aspect-ratio: 3 / 2; border-radius: var(--radius-lg); overflow: hidden; }
+.hero__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+/* Sem script, só a primeira aparece. Com script, o js/app.js assume a alternância. */
+.hero__media img + img { opacity: 0; }
+.hero__media.is-fading img { opacity: 0; transition: opacity 1200ms ease; }
+.hero__media.is-fading img.is-current { opacity: 1; }
 @media (min-width: 56em) {
   .hero { padding-block: var(--space-9); }
   .hero__inner { grid-template-columns: 11fr 9fr; gap: var(--space-8); }

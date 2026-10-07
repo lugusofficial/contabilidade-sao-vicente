@@ -122,6 +122,47 @@
     targets.forEach(function (target) { observer.observe(target); });
   }
 
+  /* Hero: alternância lenta entre as imagens, sem controles.
+     Não inicia sob prefers-reduced-motion, e sem script a primeira imagem fica fixa. */
+  function heroFade() {
+    if (reduced) { return; }
+    var stage = document.querySelector('[data-fade]');
+    if (!stage) { return; }
+    var frames = [].slice.call(stage.querySelectorAll('img'));
+    if (frames.length < 2) { return; }
+
+    var index = 0;
+    stage.classList.add('is-fading');
+    frames[0].classList.add('is-current');
+
+    var timer = null;
+    function step() {
+      frames[index].classList.remove('is-current');
+      index = (index + 1) % frames.length;
+      frames[index].classList.add('is-current');
+    }
+    function start() {
+      if (timer === null) { timer = window.setInterval(step, 6500); }
+    }
+    function stop() {
+      if (timer !== null) { window.clearInterval(timer); timer = null; }
+    }
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { start(); } else { stop(); }
+        });
+      }, { threshold: 0 }).observe(stage);
+    } else {
+      start();
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { stop(); } else { start(); }
+    });
+  }
+
   reveal();
   agenda();
+  heroFade();
 })();
