@@ -10,10 +10,10 @@
   --color-rule: #C8D2D9;
   --color-focus: #2B79B2;
 
-  --font-display: "Instrument Serif", Georgia, 'Times New Roman', serif;
+  --font-display: "Instrument Sans", system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-body: "Instrument Sans", system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-  --weight-display: 400;
-  --weight-display-strong: 400;
+  --weight-display: 600;
+  --weight-display-strong: 700;
   --weight-body: 400;
   --weight-body-medium: 500;
 
